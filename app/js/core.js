@@ -21,6 +21,15 @@ const CISSP = window.CISSP = {
     this.domains[d.id - 1] = d;
   },
 
+  // Attaches beginner material (plain, ex, dg) to concepts by key, e.g. 'd1-c3'.
+  explain(domId, map) {
+    const d = this.domains[domId - 1];
+    Object.keys(map).forEach(k => {
+      const c = d && d.concepts.find(x => x.key === k);
+      if (c) Object.assign(c, map[k]); else console.warn('explain: unknown concept ' + k);
+    });
+  },
+
   allQuestions() { return this.domains.flatMap(d => d.questions); },
   allTerms() { return this.domains.flatMap(d => d.terms); },
   dom(id) { return this.domains[id - 1]; },
@@ -50,6 +59,7 @@ const UI = {
     'correct': 'Correct', 'incorrect': 'Incorrect', 'explanation': 'Explanation',
     'flip': 'Click card to flip', 'again2': 'Again', 'hard': 'Hard', 'good': 'Good', 'easy': 'Easy',
     'mindmap': 'Domain map', 'diagram': 'Interactive', 'back': 'Back',
+    'nav.basics': 'Basics', 'plain': 'In plain words', 'example': 'Real-world example', 'schema': 'How it fits together',
   },
   ru: {
     'nav.dashboard': 'Обзор', 'nav.plan': 'План', 'nav.domains': 'Домены', 'nav.flashcards': 'Карточки',
@@ -62,6 +72,7 @@ const UI = {
     'correct': 'Верно', 'incorrect': 'Неверно', 'explanation': 'Объяснение',
     'flip': 'Нажмите на карточку, чтобы перевернуть', 'again2': 'Снова', 'hard': 'Трудно', 'good': 'Хорошо', 'easy': 'Легко',
     'mindmap': 'Карта домена', 'diagram': 'Интерактив', 'back': 'Назад',
+    'nav.basics': 'Основы', 'plain': 'Простыми словами', 'example': 'Пример из жизни', 'schema': 'Как это устроено',
   },
 };
 

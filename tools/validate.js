@@ -5,7 +5,7 @@ const app = process.argv[2] || path.join(__dirname, '..', 'app');
 const ctx = { window: {}, console, localStorage: undefined, document: { addEventListener() {} } };
 ctx.window = ctx; ctx.globalThis = ctx;
 vm.createContext(ctx);
-for (const f of ['js/core.js', 'data/meta.js', ...[1,2,3,4,5,6,7,8].map(i => `data/d${i}.js`), 'js/cat.js'])
+for (const f of ['js/core.js', 'data/meta.js', ...[1,2,3,4,5,6,7,8].map(i => `data/d${i}.js`), 'data/basics.js', ...[1,2,3,4,5,6,7,8].map(i => `data/x${i}.js`).filter(f => fs.existsSync(path.join(app, f))), 'js/cat.js'])
   vm.runInContext(fs.readFileSync(path.join(app, f), 'utf8'), ctx, { filename: f });
 const C = ctx.CISSP;
 let errs = 0; const err = m => { errs++; console.log('ERR', m); };
@@ -26,6 +26,16 @@ C.domains.forEach(d => {
   d.concepts.forEach(c => { if (!c.t.en || !c.b.en || !c.b.ru) err('concept ' + c.key); if (c.w && !['flow','layers','compare','riskCalc','controlGame','secModels','keyCount','hashDemo','cipher','biometric','backupSim','sharedResp'].includes(c.w[0])) err('widget ' + c.w[0]); });
   console.log(`D${d.id} w=${d.weight} q=${d.questions.length} terms=${d.terms.length} concepts=${d.concepts.length}`);
 });
+// beginner layer: architecture diagrams must reference existing nodes
+const checkDg = (dg, where) => [].concat(dg || []).forEach(g => {
+  const ids = new Set(g.nodes.map(n => n[0]));
+  (g.edges || []).forEach(e => { if (!ids.has(e[0]) || !ids.has(e[1])) err('diagram edge ' + where + ' ' + e[0] + '>' + e[1]); });
+});
+C.basics.sections.forEach((s, i) => { if (!s.t.en || !s.b.en || !s.b.ru) err('basics section ' + i); checkDg(s.dg, 'basics' + i); });
+C.basics.glossary.forEach(g => { if (!g[0] || !g[1] || !g[2]) err('basics term ' + g[0]); });
+let explained = 0, all = 0;
+C.domains.forEach(d => d.concepts.forEach(c => { all++; if (c.plain && c.ex) explained++; checkDg(c.dg, c.key); }));
+console.log('basics sections', C.basics.sections.length, 'basics terms', C.basics.glossary.length, 'concepts explained', explained + '/' + all);
 console.log('total q', tot, byType, 'diff', byDiff, 'terms', C.allTerms().length, 'weights', C.domains.reduce((s,d)=>s+d.weight,0));
 // CAT simulation
 const CAT = C.CAT, bank = C.allQuestions(), W = Object.fromEntries(C.domains.map(d => [d.id, d.weight]));

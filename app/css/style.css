@@ -173,3 +173,43 @@ svg text { fill: var(--text); font-family: inherit; }
 details summary { cursor: pointer; font-weight: 600; }
 .mindmap svg { width: 100%; height: auto; }
 .mindmap a { cursor: pointer; }
+
+/* beginner layer: explanation boxes, glossary pop-overs, architecture diagrams */
+.xbox { border-radius: 8px; padding: 10px 14px; margin: 10px 0; }
+.xbox p { margin: 6px 0; }
+.xbox ul, .xbox ol { padding-left: 20px; margin: 6px 0; }
+.xbox .xh { font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; font-weight: 700; margin-bottom: 4px; }
+.xbox.plain { background: var(--ok-soft); border-left: 3px solid var(--ok); }
+.xbox.plain .xh { color: var(--ok); }
+.xbox.ex { background: var(--accent-soft); border-left: 3px solid var(--accent); }
+.xbox.ex .xh { color: var(--accent); }
+.gl, .gl-demo { border-bottom: 1px dotted var(--accent); cursor: help; }
+.gl:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-radius: 2px; }
+.gl-pop { position: absolute; z-index: 50; background: var(--panel); color: var(--text); border: 1px solid var(--border); border-radius: 8px;
+  padding: 10px 12px; box-shadow: 0 6px 24px rgba(0,0,0,.18); font-size: .88rem; line-height: 1.45; }
+.gl-pop .row { margin-bottom: 4px; }
+.arch-wrap { overflow-x: auto; }
+.arch { width: 100%; min-width: 620px; height: auto; display: block; font-family: inherit; }
+.arch .zone rect { fill: var(--panel); stroke: var(--border); stroke-dasharray: 5 4; }
+.arch .zone text { font-size: 11px; font-weight: 700; fill: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+.arch .zone.trust rect { fill: var(--ok-soft); stroke: var(--ok); }
+.arch .zone.dmz rect { fill: var(--warn-soft); stroke: var(--warn); }
+.arch .zone.untrust rect { fill: var(--bad-soft); stroke: var(--bad); }
+.arch .nd rect { fill: var(--panel); stroke: var(--muted); stroke-width: 1.2; }
+.arch .nd .t { font-size: 13px; font-weight: 600; fill: var(--text); text-anchor: middle; }
+.arch .nd .s { font-size: 11px; fill: var(--muted); text-anchor: middle; }
+.arch .nd.bad rect { fill: var(--bad-soft); stroke: var(--bad); }
+.arch .nd.ok rect { fill: var(--ok-soft); stroke: var(--ok); }
+.arch .nd.key rect { fill: var(--accent-soft); stroke: var(--accent); }
+.arch .nd.dim rect { fill: var(--panel2); stroke: var(--border); }
+.arch .edge line { stroke: var(--muted); stroke-width: 1.6; }
+.arch .edge.dash line { stroke-dasharray: 5 4; }
+.arch .edge.bad line { stroke: var(--bad); }
+.arch .edge.ok line { stroke: var(--ok); }
+.arch .edge.key line { stroke: var(--accent); }
+.arch .edge .lbg { fill: var(--panel); opacity: .92; }
+.arch .edge text { font-size: 11px; fill: var(--text); text-anchor: middle; }
+.arch .mk { fill: var(--muted); }
+.arch .mk.bad { fill: var(--bad); }
+.arch .mk.ok { fill: var(--ok); }
+.arch .mk.key { fill: var(--accent); }

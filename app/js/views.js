@@ -88,6 +88,7 @@
         <div class="explain">${correctList}<b>${t('explanation')}:</b> ${esc(ru() ? q.r : q.e)}
         <div style="margin-top:8px">${ru() ? C.ruToggle(esc(q.e), 'EN') : C.ruToggle(esc(q.r))}</div></div>
         <div class="row" style="margin-top:10px"><button class="btn primary" id="qNext">${t('next')} →</button></div>`;
+      C.glossify(el.querySelector('#qFeedback .explain'));
       const nx = el.querySelector('#qNext');
       nx.onclick = () => opts.onNext && opts.onNext();
       nx.focus();
@@ -268,6 +269,7 @@
         <table style="margin-top:8px">${d.objectives.map(o => `<tr><td style="width:60px"><b>${o[0]}</b></td><td>${esc(o[1])}</td></tr>`).join('')}</table>
         <p class="small muted">${tr('Source:', 'Источник:')} <a href="https://www.isc2.org/certifications/cissp/cissp-certification-exam-outline" target="_blank" rel="noopener">ISC2 CISSP Exam Outline (April 15, 2024)</a></p></details>
       <h2>${t('concepts')}</h2>
+      <div class="hint small">${tr('New to IT or security? Each concept starts with a plain-words explanation and ends with a real-world example. <span class="gl-demo">Dotted words</span> show a definition when you hover or tap them. For the fundamentals (networks, encryption, cloud, servers), see', 'Новичок в IT или безопасности? Каждое понятие начинается с объяснения простыми словами и заканчивается примером из жизни. <span class="gl-demo">Подчёркнутые пунктиром слова</span> показывают определение при наведении или нажатии. Фундамент (сети, шифрование, облако, серверы) — на странице')} <a href="#/basics">${t('nav.basics')}</a>.</div>
       <div class="toc">${d.concepts.map(c => `<a href="javascript:void 0" data-jump="${c.key}" class="${read[c.key] ? 'done' : ''}">${esc(L(c.t))}</a>`).join('')}</div>
       <div id="concepts" style="margin-top:14px"></div>
       <h2>${t('terms')} (${d.terms.length})</h2>
@@ -282,11 +284,16 @@
       card.innerHTML = `<div class="row"><h3>${esc(L(c.t))}</h3><span class="spacer"></span>
         <button class="btn small" data-read>${read[c.key] ? t('read') : t('markRead')}</button></div>
         ${ru() && c.t.en ? `<div class="small muted" style="margin-top:-6px">${esc(c.t.en)}</div>` : ''}
+        ${C.explainHtml(c).plain}
         <div class="body">${primary || ''}</div>
         ${other ? (ru() ? C.ruToggle(other, t('showEn')).replace('🇷🇺 ', '🇬🇧 ') : C.ruToggle(other)) : ''}
+        ${C.explainHtml(c).ex}
+        <div class="dgs"></div>
         ${c.w ? '<div class="widget"></div>' : ''}`;
       box.appendChild(card);
+      C.renderDiagrams(card.querySelector('.dgs'), c);
       if (c.w) C.renderWidget(card.querySelector('.widget'), c.w);
+      C.glossify(card);
       card.querySelector('[data-read]').onclick = e => {
         const r = store.get('read', {}); r[c.key] = !r[c.key]; store.set('read', r);
         e.target.textContent = r[c.key] ? t('read') : t('markRead');

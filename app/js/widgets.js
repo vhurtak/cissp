@@ -27,6 +27,7 @@
       const s = data.steps[+st.dataset.i];
       det.classList.remove('muted');
       det.innerHTML = `<b>${esc(L(s.t))}</b><div>${L(s.d)}</div>`;
+      if (CISSP.glossify) CISSP.glossify(det);
     });
   };
 
@@ -44,6 +45,7 @@
       const it = data.items[+st.dataset.i];
       det.classList.remove('muted');
       det.innerHTML = `<b>${esc(L(it.t))}</b><div>${L(it.d)}</div>`;
+      if (CISSP.glossify) CISSP.glossify(det);
     });
   };
 

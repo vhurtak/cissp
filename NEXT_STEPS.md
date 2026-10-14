@@ -17,6 +17,12 @@ Each concept should have a definition, a plain-language explanation, a real-worl
 - Fixed: on concept cards that have both a diagram and an interactive widget, the widget used to overwrite the diagram (`views.js` now targets the card's own widget slot).
 - Edge labels accept an optional offset: `[from, to, label, kind, dx, dy]`. Basics diagrams use it so labels no longer sit on boxes.
 - `tools/check-diagrams.js` checks every diagram in both languages (nodes inside the viewBox, no overlapping nodes, labels not on nodes). Text widths are estimated the same way as in `learn.js`.
+- Polish pass:
+  - `tools/check-diagrams.js` also reports edges that cross unrelated nodes; the two crossings it found (basics DMZ, D8 database view) are fixed.
+  - Glossary density: basics terms (Network, Risk, Server…) are linked once per domain page, domain terms once per concept card. D1 went from 148 to 93 underlines, D4 from 159 to 94.
+  - Russian pop-overs: `app/data/ru-match.js` maps terms to Russian patterns, where `*` stands for up to 4 more letters (`шифрован*`). Matching uses Unicode word boundaries. `validate.js` checks that every key is a known term.
+  - Flashcards: optional "IT basics" deck (`#/flashcards/basics`, also linked from the Basics glossary). It is kept out of "All domains" and the dashboard due count.
+  - Mobile: tighter card padding under 640px, a swipe hint, and a ⤢ full-screen button on diagrams (under 860px). On a portrait phone the full-screen diagram is turned 90° so it fills the long side; Esc or ✕ closes it.
 - `tools/serve.js`: dependency-free static server (`node tools/serve.js 8766`), used by the `cissp-dev` entry in `.claude/launch.json`.
 
 ## Format reference for `xN.js`
@@ -37,13 +43,10 @@ The viewBox is 760 wide, and node x/y are centres. Node kinds: `bad`, `ok`, `key
 
 ## To do
 
-### 1. Polish
+### 1. Ideas
 
-- Edges can still cross unrelated boxes (the checker only tests labels and nodes). Worth a look when adding diagrams.
-- Glossary underlines can be dense on network-heavy cards (~120 on D4). Consider dropping very common basics terms (Network, Risk, Server, Client, Log) from auto-linking, or linking only once per page instead of once per card.
-- Russian text: auto-linking matches only English terms. Add Russian match aliases (e.g. stems like `шифрован`) if RU mode needs pop-overs too.
-- The flashcards view could include basics glossary terms as an optional "IT basics" deck.
-- Mobile: diagrams scroll horizontally (min-width 620px). Check readability on a 375px screen.
+- Russian match patterns (`data/ru-match.js`) cover the basics glossary and ~100 domain terms. The remaining domain terms (mostly acronyms and names such as Bell-LaPadula) match in RU text already or rarely appear in Russian form.
+- The flashcards view could offer a "concepts" deck built from the `plain` explanations.
 
 ### 2. Housekeeping
 

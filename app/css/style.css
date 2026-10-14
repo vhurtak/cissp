@@ -189,6 +189,17 @@ details summary { cursor: pointer; font-weight: 600; }
   padding: 10px 12px; box-shadow: 0 6px 24px rgba(0,0,0,.18); font-size: .88rem; line-height: 1.45; }
 .gl-pop .row { margin-bottom: 4px; }
 .arch-wrap { overflow-x: auto; }
+.arch-head { display: flex; align-items: center; gap: 8px; }
+.arch-full { display: none; margin-left: auto; padding: 1px 8px; text-transform: none; }
+.arch-hint { display: none; font-size: .75rem; color: var(--muted); margin: -4px 0 6px; }
+.arch-overlay { position: fixed; inset: 0; z-index: 60; background: var(--panel); overflow: auto; padding: 12px; }
+.arch-overlay .arch { min-width: 760px; }
+@media (max-width: 860px) { .arch-full { display: inline-flex; } }
+@media (max-width: 640px) {
+  .card { padding: 12px; }
+  .widget { padding: 8px; }
+  .arch-hint { display: block; }
+}
 .arch { width: 100%; min-width: 620px; height: auto; display: block; font-family: inherit; }
 .arch .zone rect { fill: var(--panel); stroke: var(--border); stroke-dasharray: 5 4; }
 .arch .zone text { font-size: 11px; font-weight: 700; fill: var(--muted); text-transform: uppercase; letter-spacing: .04em; }

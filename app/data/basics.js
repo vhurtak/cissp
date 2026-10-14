@@ -97,8 +97,8 @@ CISSP.basics = {
         nodes: [
           ['inet', 70, 150, { en: 'Internet', ru: 'Интернет' }, null, '🌐', null, 100],
           ['fw1', 190, 165, 'Firewall', null, '🧱', 'key', 90],
-          ['web', 342, 115, { en: 'Public website', ru: 'Публичный сайт' }, null, '🖥'],
-          ['mail', 342, 225, { en: 'Mail gateway', ru: 'Почтовый шлюз' }, null, '📧'],
+          ['web', 342, 105, { en: 'Public website', ru: 'Публичный сайт' }, null, '🖥'],
+          ['mail', 342, 172, { en: 'Mail gateway', ru: 'Почтовый шлюз' }, null, '📧'],
           ['fw2', 497, 165, 'Firewall', null, '🧱', 'key', 90],
           ['pc', 657, 95, { en: 'Employee PCs', ru: 'ПК сотрудников' }, null, '💻'],
           ['fs', 657, 165, { en: 'File server', ru: 'Файл-сервер' }, null, '🗂'],

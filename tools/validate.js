@@ -5,7 +5,7 @@ const app = process.argv[2] || path.join(__dirname, '..', 'app');
 const ctx = { window: {}, console, localStorage: undefined, document: { addEventListener() {} } };
 ctx.window = ctx; ctx.globalThis = ctx;
 vm.createContext(ctx);
-for (const f of ['js/core.js', 'data/meta.js', ...[1,2,3,4,5,6,7,8].map(i => `data/d${i}.js`), 'data/basics.js', ...[1,2,3,4,5,6,7,8].map(i => `data/x${i}.js`).filter(f => fs.existsSync(path.join(app, f))), 'js/cat.js'])
+for (const f of ['js/core.js', 'data/meta.js', ...[1,2,3,4,5,6,7,8].map(i => `data/d${i}.js`), 'data/basics.js', 'data/ru-match.js', ...[1,2,3,4,5,6,7,8].map(i => `data/x${i}.js`).filter(f => fs.existsSync(path.join(app, f))), 'js/cat.js'])
   vm.runInContext(fs.readFileSync(path.join(app, f), 'utf8'), ctx, { filename: f });
 const C = ctx.CISSP;
 let errs = 0; const err = m => { errs++; console.log('ERR', m); };
@@ -33,6 +33,8 @@ const checkDg = (dg, where) => [].concat(dg || []).forEach(g => {
 });
 C.basics.sections.forEach((s, i) => { if (!s.t.en || !s.b.en || !s.b.ru) err('basics section ' + i); checkDg(s.dg, 'basics' + i); });
 C.basics.glossary.forEach(g => { if (!g[0] || !g[1] || !g[2]) err('basics term ' + g[0]); });
+const known = new Set([...C.allTerms().map(t => t.term), ...C.basics.glossary.map(g => g[0])]);
+Object.entries(C.ruMatch || {}).forEach(([term, pats]) => { if (!known.has(term)) err('ruMatch unknown term ' + term); pats.forEach(p => { if (!/[а-яё]/i.test(p)) err('ruMatch pattern has no Cyrillic ' + term + ': ' + p); }); });
 let explained = 0, all = 0;
 C.domains.forEach(d => d.concepts.forEach(c => { all++; if (c.plain && c.ex) explained++; checkDg(c.dg, c.key); }));
 console.log('basics sections', C.basics.sections.length, 'basics terms', C.basics.glossary.length, 'concepts explained', explained + '/' + all);

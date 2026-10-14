@@ -276,7 +276,7 @@
       <div class="card table-wrap"><table><thead><tr><th>Term</th><th>Definition</th><th>RU</th></tr></thead>
         <tbody>${d.terms.map(tm => `<tr><td><b>${esc(tm.term)}</b></td><td>${esc(tm.en)}</td><td class="small muted">${esc(tm.ru)}</td></tr>`).join('')}</tbody></table></div>`;
 
-    const box = main.querySelector('#concepts');
+    const box = main.querySelector('#concepts'), pageSeen = new Set();
     d.concepts.forEach(c => {
       const card = document.createElement('div');
       card.className = 'card concept'; card.id = c.key; card.style.setProperty('--c', C.domColor(d.id));
@@ -293,7 +293,7 @@
       box.appendChild(card);
       C.renderDiagrams(card.querySelector('.dgs'), c);
       if (c.w) C.renderWidget(card.querySelector(':scope > .widget'), c.w);
-      C.glossify(card);
+      C.glossify(card, null, pageSeen);
       card.querySelector('[data-read]').onclick = e => {
         const r = store.get('read', {}); r[c.key] = !r[c.key]; store.set('read', r);
         e.target.textContent = r[c.key] ? t('read') : t('markRead');
@@ -307,27 +307,31 @@
 
   // ======================= flashcards (Leitner) =======================
   const INTERVALS = [0, 0, 1, 3, 7, 16]; // days for boxes 1..5 (index by box)
+  // optional "IT basics" deck (#/flashcards/basics): the basics glossary, kept out of "All domains"
+  const basicsTerms = () => C.basics.glossary.map(g => ({ id: 'b:' + g[0], term: g[0], en: g[1], ru: g[2], dom: 0 }));
   C.views.flashcards = (main, domArg) => {
-    let dom = domArg ? +domArg : 0, onlyDue = true;
+    let dom = domArg === 'basics' ? 'basics' : domArg ? +domArg : 0, onlyDue = true;
+    const inScope = () => dom === 'basics' ? basicsTerms() : C.allTerms().filter(tm => !dom || tm.dom === dom);
     const pickDeck = () => {
       const cards = store.get('cards', {});
-      let terms = C.allTerms().filter(tm => !dom || tm.dom === dom);
+      let terms = inScope();
       if (onlyDue) terms = terms.filter(tm => !cards[tm.id] || cards[tm.id].due <= Date.now());
       return C.shuffle(terms);
     };
     let deck = pickDeck(), i = 0;
     const render = () => {
       const cards = store.get('cards', {});
-      const scope = C.allTerms().filter(tm => !dom || tm.dom === dom);
+      const scope = inScope();
       const boxes = [1, 2, 3, 4, 5].map(b => scope.filter(tm => (cards[tm.id] ? cards[tm.id].box : 1) === b).length);
       const tm = deck[i];
       main.innerHTML = `<h1>${tr('Flashcards', 'Карточки')}</h1>
-        <div class="row"><select id="dom"><option value="0">${tr('All domains', 'Все домены')}</option>${C.domains.map(d => `<option value="${d.id}" ${d.id === dom ? 'selected' : ''}>D${d.id} ${esc(L(d.title))}</option>`).join('')}</select>
+        <div class="row"><select id="dom"><option value="0">${tr('All domains', 'Все домены')}</option>${C.domains.map(d => `<option value="${d.id}" ${d.id === dom ? 'selected' : ''}>D${d.id} ${esc(L(d.title))}</option>`).join('')}
+          <option value="basics" ${dom === 'basics' ? 'selected' : ''}>${tr('IT basics (primer glossary)', 'Основы IT (базовый глоссарий)')}</option></select>
           <label class="chk"><input type="checkbox" id="due" ${onlyDue ? 'checked' : ''}> ${tr('Only due cards', 'Только к повторению')}</label>
           <span class="spacer"></span><span class="muted small">${tm ? `${i + 1} / ${deck.length}` : ''}</span></div>
         <div class="boxes" style="margin:12px 0">${boxes.map((n, k) => `<div>${tr('Box', 'Коробка')} ${k + 1}<b>${n}</b></div>`).join('')}</div>
         ${tm ? `<div class="flash" id="flash"><div class="flash-inner">
-            <div class="flash-face"><div class="small muted">${domDot(tm.dom)}D${tm.dom}</div><div class="flash-term">${esc(tm.term)}</div><div class="small muted" style="margin-top:14px">${t('flip')} · Space</div></div>
+            <div class="flash-face"><div class="small muted">${tm.dom ? `${domDot(tm.dom)}D${tm.dom}` : tr('IT basics', 'Основы IT')}</div><div class="flash-term">${esc(tm.term)}</div><div class="small muted" style="margin-top:14px">${t('flip')} · Space</div></div>
             <div class="flash-face back"><div class="flash-term" style="font-size:1.2rem">${esc(tm.term)}</div><p>${esc(tm.en)}</p><div class="ru-box">${esc(tm.ru)}</div></div>
           </div></div>
           <div class="row" style="justify-content:center;margin-top:14px" id="rate" hidden>
@@ -335,7 +339,7 @@
             <button class="btn primary" data-r="2">3 · ${t('good')}</button><button class="btn" data-r="3">4 · ${t('easy')}</button></div>`
         : `<div class="card"><p>${tr('No cards due. Great job!', 'Нет карточек к повторению. Отлично!')}</p><button class="btn" id="all">${tr('Review all cards anyway', 'Повторить все карточки')}</button></div>`}
         <p class="small muted">${tr('Leitner system: "Good" moves a card up a box (longer interval), "Again" sends it back to box 1. Intervals: 0, 1, 3, 7, 16 days.', 'Система Лейтнера: «Хорошо» — в следующую коробку (интервал длиннее), «Снова» — в коробку 1. Интервалы: 0, 1, 3, 7, 16 дней.')}</p>`;
-      main.querySelector('#dom').onchange = e => { dom = +e.target.value; deck = pickDeck(); i = 0; render(); };
+      main.querySelector('#dom').onchange = e => { dom = e.target.value === 'basics' ? 'basics' : +e.target.value; deck = pickDeck(); i = 0; render(); };
       main.querySelector('#due').onchange = e => { onlyDue = e.target.checked; deck = pickDeck(); i = 0; render(); };
       const all = main.querySelector('#all');
       if (all) all.onclick = () => { onlyDue = false; deck = pickDeck(); i = 0; render(); };

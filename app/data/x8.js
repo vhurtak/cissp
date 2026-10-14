@@ -125,7 +125,7 @@ CISSP.explain(8, {
       nodes: [
         ['cc', 100, 70, { en: 'Call center', ru: 'Колл-центр' }, { en: 'role: scheduler', ru: 'роль: запись' }, '☎️'],
         ['dr', 100, 180, { en: 'Doctor', ru: 'Врач' }, { en: 'role: clinician', ru: 'роль: врач' }, '🩺'],
-        ['view', 380, 70, { en: 'View: appointments', ru: 'Представление: приёмы' }, { en: 'name, date, doctor', ru: 'имя, дата, врач' }, '🪟', 'key', 210],
+        ['view', 380, 42, { en: 'View: appointments', ru: 'Представление: приёмы' }, { en: 'name, date, doctor', ru: 'имя, дата, врач' }, '🪟', 'key', 210],
         ['tbl', 640, 125, { en: 'Patients table', ru: 'Таблица пациентов' }, { en: '+ diagnosis, notes', ru: '+ диагноз, заметки' }, '🗄', null, 180],
       ],
       edges: [['cc', 'view', { en: 'SELECT', ru: 'SELECT' }, 'ok'], ['view', 'tbl', null, 'dash'], ['dr', 'tbl', { en: 'full row, own patients', ru: 'вся строка, свои пациенты' }, 'ok'], ['cc', 'tbl', null, 'bad dash']],

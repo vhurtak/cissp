@@ -1,4 +1,5 @@
-// Checks concept diagrams in both languages: nodes inside the viewBox, no overlapping nodes, edge labels not on nodes.
+// Checks concept diagrams in both languages: nodes inside the viewBox, no overlapping nodes, edge labels not on nodes,
+// edges not crossing unrelated nodes.
 // Usage: node tools/check-diagrams.js   (text widths use the same estimate as the arch widget in learn.js)
 const fs = require('fs'), vm = require('vm'), path = require('path');
 const app = process.argv[2] || path.join(__dirname, '..', 'app');
@@ -21,6 +22,21 @@ const check = (g, where) => ['en', 'ru'].forEach(lang => {
   const ns = Object.entries(nodes);
   ns.forEach(([a, A], i) => ns.slice(i + 1).forEach(([b, B]) => { if (ov(A, B)) { n++; console.log(where, lang, 'overlap', a, b); } }));
   const pairs = new Set((g.edges || []).map(e => e[0] + '>' + e[1]));
+  // segment vs box (Liang–Barsky clip), box shrunk a little so grazing a corner is not reported
+  const hits = (p, q, N) => {
+    const m = 3, x1 = N.x1 + m, x2 = N.x2 - m, y1 = N.y1 + m, y2 = N.y2 - m, dx = q.x - p.x, dy = q.y - p.y;
+    let t0 = 0, t1 = 1;
+    for (const [pp, qq] of [[-dx, p.x - x1], [dx, x2 - p.x], [-dy, p.y - y1], [dy, y2 - p.y]]) {
+      if (!pp) { if (qq < 0) return false; continue; }
+      const r = qq / pp;
+      if (pp < 0) { if (r > t1) return false; if (r > t0) t0 = r; } else { if (r < t0) return false; if (r < t1) t1 = r; }
+    }
+    return t0 < t1;
+  };
+  (g.edges || []).forEach(([f, t]) => {
+    const a = nodes[f], b = nodes[t]; if (!a || !b) return;
+    ns.forEach(([id, N]) => { if (id !== f && id !== t && hits(a, b, N)) { n++; console.log(where, lang, 'edge', f + '>' + t, 'crosses node', id); } });
+  });
   (g.edges || []).forEach(([f, t, label, kind, dx = 0, dy = 0]) => {
     if (!label) return;
     const a = nodes[f], b = nodes[t]; if (!a || !b) return;

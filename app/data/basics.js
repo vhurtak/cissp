@@ -36,7 +36,7 @@ CISSP.basics = {
           ['app', 545, 90, { en: 'App server', ru: 'Сервер приложения' }, { en: 'runs business logic', ru: 'бизнес-логика' }, '🖥'],
           ['db', 545, 205, { en: 'Database', ru: 'База данных' }, { en: 'stores the records', ru: 'хранит записи' }, '🗄'],
         ],
-        edges: [['user', 'cl', { en: 'clicks', ru: 'кликает' }], ['cl', 'net', { en: 'request', ru: 'запрос' }], ['net', 'app'], ['app', 'db', { en: 'SQL query', ru: 'SQL-запрос' }]],
+        edges: [['user', 'cl', { en: 'clicks', ru: 'кликает' }, null, 0, -35], ['cl', 'net', { en: 'request', ru: 'запрос' }, null, 0, -35], ['net', 'app'], ['app', 'db', { en: 'SQL query', ru: 'SQL-запрос' }]],
         note: { en: 'Security controls sit on every arrow (encryption, firewalls, authentication) and every box (patching, hardening, access control).', ru: 'Меры защиты стоят на каждой стрелке (шифрование, межсетевые экраны, аутентификация) и в каждом блоке (патчи, харденинг, контроль доступа).' },
       },
     },
@@ -106,8 +106,8 @@ CISSP.basics = {
           ['rem', 120, 300, { en: 'Remote employee', ru: 'Удалённый сотрудник' }, null, '🏠'],
         ],
         edges: [
-          ['inet', 'fw1'], ['fw1', 'web', { en: 'HTTPS only', ru: 'только HTTPS' }], ['fw1', 'mail', 'SMTP'],
-          ['web', 'fw2', { en: 'app → DB only', ru: 'только к БД' }], ['fw2', 'db'], ['rem', 'fw2', { en: 'VPN tunnel (encrypted)', ru: 'VPN-туннель (шифр.)' }, 'key dash'],
+          ['inet', 'fw1'], ['fw1', 'web', { en: 'HTTPS only', ru: 'только HTTPS' }, null, 25, 5], ['fw1', 'mail', 'SMTP'],
+          ['web', 'fw2', { en: 'app → DB only', ru: 'только к БД' }, null, -25, 5], ['fw2', 'db'], ['rem', 'fw2', { en: 'VPN tunnel (encrypted)', ru: 'VPN-туннель (шифр.)' }, 'key dash', 0, 25],
         ],
       },
     },
@@ -169,7 +169,7 @@ CISSP.basics = {
         ],
         edges: [
           ['u', 'app', { en: '1. open app', ru: '1. открыть' }], ['app', 'u', { en: '2. go to IdP', ru: '2. иди к IdP' }],
-          ['u', 'idp', { en: '3. password', ru: '3. пароль' }], ['idp', 'ph', { en: '4. push to approve', ru: '4. push-запрос' }],
+          ['u', 'idp', { en: '3. password', ru: '3. пароль' }], ['idp', 'ph', { en: '4. push to approve', ru: '4. push-запрос' }, null, 0, -35],
           ['idp', 'app', { en: '5. signed token: "this is Anna"', ru: '5. подписанный токен: «это Анна»' }, 'key'],
         ],
         note: { en: 'The app never sees the password. When Anna leaves the company, disabling one IdP account cuts access to every app.', ru: 'Приложение не видит пароль. Когда Анна уходит, отключение одной учётки в IdP закрывает доступ ко всем приложениям.' },
@@ -234,7 +234,7 @@ CISSP.basics = {
           ['cust', 150, 215, { en: 'Customers', ru: 'Клиенты' }, null, '👥'],
         ],
         edges: [
-          ['dev', 'repo', { en: 'push', ru: 'push' }], ['repo', 'ci', { en: 'triggers', ru: 'запускает' }], ['ci', 'reg', { en: 'publish', ru: 'публикует' }],
+          ['dev', 'repo', { en: 'push', ru: 'push' }, null, 0, -35], ['repo', 'ci', { en: 'triggers', ru: 'запускает' }, null, 0, -35], ['ci', 'reg', { en: 'publish', ru: 'публикует' }, null, 0, -35],
           ['reg', 'stg', { en: 'deploy', ru: 'развернуть' }], ['stg', 'prod', { en: 'release', ru: 'релиз' }], ['cust', 'prod', { en: 'use', ru: 'пользуются' }],
         ],
         note: { en: 'If any gate fails (a test, a scan with a critical finding), the pipeline stops and the change never reaches production.', ru: 'Если любая проверка провалена (тест, скан с критической находкой), конвейер останавливается и изменение не попадает в продакшен.' },
@@ -270,7 +270,7 @@ CISSP.basics = {
           ['fs', 440, 255, { en: 'File servers', ru: 'Файл-серверы' }, { en: 'customer data', ru: 'данные клиентов' }, '🗂'],
         ],
         edges: [
-          ['att', 'mail', { en: '1. sends', ru: '1. отправляет' }, 'bad'], ['mail', 'lap', { en: '2. user clicks', ru: '2. клик' }, 'bad'],
+          ['att', 'mail', { en: '1. sends', ru: '1. отправляет' }, 'bad'], ['mail', 'lap', { en: '2. user clicks', ru: '2. клик' }, 'bad', 0, -35],
           ['lap', 'att', { en: '3. calls home (C2)', ru: '3. связь с C2' }, 'bad dash'], ['lap', 'dc', { en: '4. steals passwords', ru: '4. кража паролей' }, 'bad'],
           ['dc', 'fs', { en: '5. admin access', ru: '5. админ-доступ' }, 'bad'], ['fs', 'att', { en: '6. copy + encrypt', ru: '6. копия + шифрование' }, 'bad'],
         ],

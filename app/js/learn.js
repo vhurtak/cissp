@@ -132,7 +132,8 @@
       const k = (kind || '').split(' ');
       const color = k.includes('bad') ? 'bad' : k.includes('ok') ? 'ok' : k.includes('key') ? 'key' : 'def';
       const lab = label ? L(label) : '';
-      const mx = p.x + (q.x - p.x) * at, my = p.y + (q.y - p.y) * at, lw = textW(lab, 11) + 10;
+      // optional label offset: [from, to, label, kind, dx, dy]
+      const mx = p.x + (q.x - p.x) * at + (e[4] || 0), my = p.y + (q.y - p.y) * at + (e[5] || 0), lw = textW(lab, 11) + 10;
       return `<g class="edge ${color}${k.includes('dash') ? ' dash' : ''}">
         <line x1="${p.x.toFixed(1)}" y1="${p.y.toFixed(1)}" x2="${q.x.toFixed(1)}" y2="${q.y.toFixed(1)}" marker-end="url(#${id}-${color})"${k.includes('both') ? ` marker-start="url(#${id}-${color})"` : ''}/>
         ${lab ? `<rect class="lbg" x="${mx - lw / 2}" y="${my - 9}" width="${lw}" height="17" rx="4"/><text x="${mx}" y="${my + 4}">${esc(lab)}</text>` : ''}</g>`;

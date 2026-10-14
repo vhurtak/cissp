@@ -16,6 +16,8 @@ the SHA-256 hashing demo can use WebCrypto:
 python3 -m http.server 8765 --directory app
 ```
 
+If Python isn't available, `node tools/serve.js 8765` does the same.
+
 Then open http://localhost:8765. Progress is stored in the browser (localStorage). The dashboard can
 export and import it as a JSON file.
 
@@ -119,3 +121,8 @@ their IDs come from their position and are used to store your progress.
 Answer options are shuffled when shown, so `c` can stay `0`. Set `d` to 1, 2 or 3 for easy, medium or hard.
 Ordering and matching items use `t: 'order', items: [...]` and `t: 'match', pairs: [[left, right], ...]`.
 Run `node tools/validate.js` afterwards.
+
+### Beginner explanations
+
+`app/data/x1.js` … `x8.js` add a plain-words explanation, a real-world example and optional diagrams to each concept,
+keyed by concept (`'d3-c9'`). See `NEXT_STEPS.md` for the format.

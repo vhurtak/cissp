@@ -292,7 +292,7 @@
         ${c.w ? '<div class="widget"></div>' : ''}`;
       box.appendChild(card);
       C.renderDiagrams(card.querySelector('.dgs'), c);
-      if (c.w) C.renderWidget(card.querySelector('.widget'), c.w);
+      if (c.w) C.renderWidget(card.querySelector(':scope > .widget'), c.w);
       C.glossify(card);
       card.querySelector('[data-read]').onclick = e => {
         const r = store.get('read', {}); r[c.key] = !r[c.key]; store.set('read', r);

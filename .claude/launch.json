@@ -5,6 +5,15 @@
       "name": "cissp-app",
       "url": "http://localhost:8765",
       "port": 8765
+    },
+    {
+      "name": "cissp-dev",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "/Users/vkhurtak/Documents/source/cissp/tools/serve.js",
+        "8766"
+      ],
+      "port": 8766
     }
   ]
 }

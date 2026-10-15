@@ -14,5 +14,5 @@ CISSP.pathIndex([
   { n: 10, file: 's10.js', title: { en: 'When things go wrong: incidents', ru: 'Когда что-то пошло не так: инциденты' } },
   { n: 11, file: 's11.js', title: { en: 'Software that defends itself', ru: 'Программы, которые защищают себя' } },
   { n: 12, file: 's12.js', title: { en: 'Staying in business: continuity and recovery', ru: 'Устоять: непрерывность и восстановление' } },
-  { n: 13, title: { en: 'Governance, law and the manager’s view', ru: 'Управление, право и взгляд менеджера' } },
+  { n: 13, file: 's13.js', title: { en: 'Governance, law and the manager’s view', ru: 'Управление, право и взгляд менеджера' } },
 ]);

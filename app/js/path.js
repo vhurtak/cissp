@@ -86,7 +86,7 @@
           : `<button class="btn" id="prev" ${prev || prevStageWithCards(card.stage) ? '' : 'disabled'}>← ${tr('Back', 'Назад')}</button>
             <button class="btn" id="keep" aria-pressed="${kept}">${kept ? '★' : '☆'} ${tr('Keep', 'Сохранить')}</button>
             <span class="spacer"></span>
-            <button class="btn primary" id="next">${next ? tr('Next', 'Далее') : tr('Next stage', 'Следующий этап')} →</button>`}
+            <button class="btn primary" id="next">${next ? tr('Next', 'Далее') : nextStageWithCards(card.stage) ? tr('Next stage', 'Следующий этап') : tr('Finish', 'Завершить')} →</button>`}
       </div>
       <p class="small muted path-keys">${tr('Keys: ← → to move, Space to reveal. On a phone, swipe the card.', 'Клавиши: ← → — листать, пробел — открыть ответ. На телефоне листайте карточку пальцем.')}</p>`;
 
@@ -233,7 +233,12 @@
     if (arg === 'refresh') return refreshView(main);
     if (arg === 'concept') return conceptView(main, arg2 || '');
     if (arg === 'end') {
-      main.innerHTML = `<h1>${tr('You reached the end of the path so far', 'Вы дошли до конца доступного пути')}</h1>
+      const done = C.pathStages.every(m => m.file && !m.partial);
+      main.innerHTML = done
+        ? `<h1>${tr('You finished the learning path', 'Вы прошли учебный путь')}</h1>
+        <div class="card"><p>${tr('All 13 stages are behind you. Now check yourself: quizzes by domain, then the exam simulator. Refresh your kept cards now and then.', 'Все 13 этапов позади. Теперь проверьте себя: тесты по доменам, затем симулятор экзамена. Время от времени повторяйте сохранённые карточки.')}</p>
+        <div class="row"><a class="btn primary" href="#/quiz">${tr('Take a quiz', 'Пройти тест')}</a><a class="btn" href="#/exam">${tr('Exam simulator', 'Симулятор экзамена')}</a><a class="btn" href="#/path/refresh">↺ ${tr('Refresh', 'Повторить')}</a><a class="btn" href="#/path/stages">☰ ${tr('Stages', 'Этапы')}</a></div></div>`
+        : `<h1>${tr('You reached the end of the path so far', 'Вы дошли до конца доступного пути')}</h1>
         <div class="card"><p>${tr('More stages are on the way. Meanwhile, check yourself with a quiz or refresh your kept cards.', 'Новые этапы в работе. А пока проверьте себя тестом или повторите сохранённые карточки.')}</p>
         <div class="row"><a class="btn primary" href="#/quiz">${tr('Take a quiz', 'Пройти тест')}</a><a class="btn" href="#/path/refresh">↺ ${tr('Refresh', 'Повторить')}</a><a class="btn" href="#/path/stages">☰ ${tr('Stages', 'Этапы')}</a></div></div>`;
       return;

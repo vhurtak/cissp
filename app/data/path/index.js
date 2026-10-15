@@ -12,7 +12,7 @@ CISSP.pathIndex([
   { n: 8, file: 's08.js', title: { en: 'Buildings, power and people safety', ru: 'Здания, питание и безопасность людей' } },
   { n: 9, file: 's09.js', title: { en: 'Watching and testing', ru: 'Наблюдение и проверка' } },
   { n: 10, file: 's10.js', title: { en: 'When things go wrong: incidents', ru: 'Когда что-то пошло не так: инциденты' } },
-  { n: 11, title: { en: 'Software that defends itself', ru: 'Программы, которые защищают себя' } },
+  { n: 11, file: 's11.js', title: { en: 'Software that defends itself', ru: 'Программы, которые защищают себя' } },
   { n: 12, title: { en: 'Staying in business: continuity and recovery', ru: 'Устоять: непрерывность и восстановление' } },
   { n: 13, title: { en: 'Governance, law and the manager’s view', ru: 'Управление, право и взгляд менеджера' } },
 ]);

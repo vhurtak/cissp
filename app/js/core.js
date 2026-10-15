@@ -30,6 +30,16 @@ const CISSP = window.CISSP = {
     });
   },
 
+  // Learning path (#/path): the stage list comes from data/path/index.js, each stage's cards
+  // from data/path/sNN.js, loaded on demand.
+  pathStages: [],
+  stages: {},
+  pathIndex(list) { this.pathStages = list; },
+  stage(n, data) {
+    data.cards.forEach((c, i) => { c.stage = n; c.i = i; });
+    this.stages[n] = data;
+  },
+
   allQuestions() { return this.domains.flatMap(d => d.questions); },
   allTerms() { return this.domains.flatMap(d => d.terms); },
   dom(id) { return this.domains[id - 1]; },
@@ -59,7 +69,7 @@ const UI = {
     'correct': 'Correct', 'incorrect': 'Incorrect', 'explanation': 'Explanation',
     'flip': 'Click card to flip', 'again2': 'Again', 'hard': 'Hard', 'good': 'Good', 'easy': 'Easy',
     'mindmap': 'Domain map', 'diagram': 'Interactive', 'back': 'Back',
-    'nav.basics': 'Basics', 'plain': 'In plain words', 'example': 'Real-world example', 'schema': 'How it fits together',
+    'nav.path': 'Learning path', 'nav.basics': 'Basics', 'plain': 'In plain words', 'example': 'Real-world example', 'schema': 'How it fits together',
   },
   ru: {
     'nav.dashboard': 'Обзор', 'nav.plan': 'План', 'nav.domains': 'Домены', 'nav.flashcards': 'Карточки',
@@ -72,7 +82,7 @@ const UI = {
     'correct': 'Верно', 'incorrect': 'Неверно', 'explanation': 'Объяснение',
     'flip': 'Нажмите на карточку, чтобы перевернуть', 'again2': 'Снова', 'hard': 'Трудно', 'good': 'Хорошо', 'easy': 'Легко',
     'mindmap': 'Карта домена', 'diagram': 'Интерактив', 'back': 'Назад',
-    'nav.basics': 'Основы', 'plain': 'Простыми словами', 'example': 'Пример из жизни', 'schema': 'Как это устроено',
+    'nav.path': 'Путь обучения', 'nav.basics': 'Основы', 'plain': 'Простыми словами', 'example': 'Пример из жизни', 'schema': 'Как это устроено',
   },
 };
 
@@ -155,6 +165,7 @@ CISSP.route = () => {
   document.getElementById('nav').classList.remove('open');
   const fn = CISSP.views[view] || CISSP.views.dashboard;
   main.innerHTML = '';
+  CISSP._qKeys = null; // keyboard handler of the previous view
   window.scrollTo(0, 0);
   fn(main, ...parts.slice(1));
 };

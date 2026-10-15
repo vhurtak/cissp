@@ -4,8 +4,9 @@
 const fs = require('fs'), vm = require('vm'), path = require('path');
 const app = process.argv[2] || path.join(__dirname, '..', 'app');
 const ctx = { console, document: { addEventListener() {} } }; ctx.window = ctx; vm.createContext(ctx);
-const files = ['js/core.js', 'data/meta.js', ...[1,2,3,4,5,6,7,8].map(i => `data/d${i}.js`), 'data/basics.js', ...[1,2,3,4,5,6,7,8].map(i => `data/x${i}.js`).filter(f => fs.existsSync(path.join(app, f)))];
+const files = ['js/core.js', 'data/meta.js', ...[1,2,3,4,5,6,7,8].map(i => `data/d${i}.js`), 'data/basics.js', ...[1,2,3,4,5,6,7,8].map(i => `data/x${i}.js`).filter(f => fs.existsSync(path.join(app, f))), 'data/path/index.js'];
 for (const f of files) vm.runInContext(fs.readFileSync(path.join(app, f), 'utf8'), ctx, { filename: f });
+ctx.CISSP.pathStages.filter(m => m.file).forEach(m => vm.runInContext(fs.readFileSync(path.join(app, 'data/path', m.file), 'utf8'), ctx, { filename: m.file }));
 const C = ctx.CISSP, textW = (s, fs) => [...s].length * fs * 0.56;
 const L = (v, lang) => v == null ? '' : typeof v === 'string' ? v : v[lang];
 const ov = (a, b) => a.x1 < b.x2 && b.x1 < a.x2 && a.y1 < b.y2 && b.y1 < a.y2;
@@ -50,4 +51,5 @@ const check = (g, where) => ['en', 'ru'].forEach(lang => {
 });
 C.domains.forEach(d => d.concepts.forEach(c => [].concat(c.dg || []).forEach((g, i) => check(g, c.key + '#' + i))));
 C.basics.sections.forEach((sec, k) => [].concat(sec.dg || []).forEach((g, i) => check(g, 'basics' + k + '#' + i)));
+Object.values(C.stages).forEach(st => st.cards.forEach(c => [].concat(c.dg || []).forEach((g, i) => check(g, c.id + '#' + i))));
 console.log(n ? n + ' layout issues' : 'layout OK');

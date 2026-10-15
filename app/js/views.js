@@ -146,6 +146,7 @@
           <div class="progress" style="margin-top:8px"><i style="width:${C.pct(planDone, planTotal)}%"></i></div></div>
       </div>
 
+      ${C.pathResumeHtml ? C.pathResumeHtml() : ''}
       <div class="card hint"><b>${tr('Next best step', 'Следующий шаг')}:</b>
         ${unstarted ? `${tr('Start', 'Начните')} <a href="#/domain/${unstarted.id}">D${unstarted.id} — ${esc(domName(unstarted.id))}</a> ${tr('and its', 'и его')} <a href="#/quiz/${unstarted.id}">${tr('quiz', 'тест')}</a>.`
         : weakest ? `${tr('Your weakest domain is', 'Самый слабый домен —')} <a href="#/domain/${weakest.id}">D${weakest.id} ${esc(domName(weakest.id))}</a> (${Math.round(weakest.acc * 100)}%). <a href="#/quiz/${weakest.id}">${tr('Practice it', 'Потренируйтесь')}</a>.` : ''}
@@ -179,12 +180,12 @@
     main.querySelector('#examDate').onchange = e => { store.set('examDate', e.target.value); C.route(); };
     main.querySelector('#resetBtn').onclick = () => {
       if (!confirm(tr('Delete all progress stored in this browser?', 'Удалить весь прогресс в этом браузере?'))) return;
-      ['answers', 'cards', 'plan', 'history', 'read', 'examDate', 'activeExam'].forEach(k => store.set(k, k === 'history' ? [] : k === 'examDate' ? '' : {}));
+      ['answers', 'cards', 'plan', 'history', 'read', 'examDate', 'activeExam', 'path'].forEach(k => store.set(k, k === 'history' ? [] : k === 'examDate' ? '' : {}));
       C.route();
     };
     main.querySelector('#exportBtn').onclick = () => {
       const data = {};
-      ['answers', 'cards', 'plan', 'history', 'read', 'examDate'].forEach(k => { data[k] = store.get(k, null); });
+      ['answers', 'cards', 'plan', 'history', 'read', 'examDate', 'path'].forEach(k => { data[k] = store.get(k, null); });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(new Blob([JSON.stringify(data, null, 1)], { type: 'application/json' }));
       a.download = 'cissp-progress.json'; a.click();
@@ -253,7 +254,7 @@
   };
 
   // ======================= domain detail =======================
-  C.views.domain = (main, idStr) => {
+  C.views.domain = (main, idStr, focus) => {
     const d = C.dom(+idStr);
     if (!d) { location.hash = '#/domains'; return; }
     const read = store.get('read', {});
@@ -282,6 +283,7 @@
       card.className = 'card concept'; card.id = c.key; card.style.setProperty('--c', C.domColor(d.id));
       const primary = ru() ? c.b.ru : c.b.en, other = ru() ? c.b.en : c.b.ru;
       card.innerHTML = `<div class="row"><h3>${esc(L(c.t))}</h3><span class="spacer"></span>
+        <a class="btn small" href="#/path/concept/${c.key}">▶ ${tr('See it in the path', 'Смотреть в пути')}</a>
         <button class="btn small" data-read>${read[c.key] ? t('read') : t('markRead')}</button></div>
         ${ru() && c.t.en ? `<div class="small muted" style="margin-top:-6px">${esc(c.t.en)}</div>` : ''}
         ${C.explainHtml(c).plain}
@@ -303,10 +305,13 @@
     main.querySelectorAll('[data-jump]').forEach(a => a.addEventListener('click', () => {
       document.getElementById(a.dataset.jump).scrollIntoView({ behavior: 'smooth', block: 'start' });
     }));
+    // #/domain/1/d1-c8 opens the page at that concept (used by "Read more" in the learning path)
+    const target = focus && document.getElementById(focus);
+    if (target) target.scrollIntoView({ block: 'start' });
   };
 
   // ======================= flashcards (Leitner) =======================
-  const INTERVALS = [0, 0, 1, 3, 7, 16]; // days for boxes 1..5 (index by box)
+  const INTERVALS = C.INTERVALS = [0, 0, 1, 3, 7, 16]; // days for boxes 1..5 (index by box); also used by the path's refresh set
   // optional "IT basics" deck (#/flashcards/basics): the basics glossary, kept out of "All domains"
   const basicsTerms = () => C.basics.glossary.map(g => ({ id: 'b:' + g[0], term: g[0], en: g[1], ru: g[2], dom: 0 }));
   C.views.flashcards = (main, domArg) => {

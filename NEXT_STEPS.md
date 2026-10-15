@@ -31,6 +31,8 @@ Each concept should have a definition, a plain-language explanation, a real-worl
   - `validate.js` checks path cards (see "App work" below for the rules) and prints coverage; the "every concept introduced once and revisited twice" rule turns into an error once all stages exist and none is partial. `check-diagrams.js` checks card diagrams too.
   - Global `[hidden] { display: none !important }` in CSS: buttons and `.row`s with `hidden` were still shown (this also fixes the flashcard rating row, which used to show before flipping).
 - Stage 2 finished (`s02.js`, 35 cards, recap at `s02-035`, no longer `partial`): social engineering (Twitter 2020, the levers, phishing variants, pretexting/tailgating, BEC), a phishing-chain diagram, awareness vs training vs education, measuring awareness, insider threat signs and types (Snowden 2013), AUP/NDA, role-based training, and a blame-free reporting culture. Path total: 80 cards, 24/77 concepts introduced.
+- Stage outline: `app/data/path/outline.md` plans all 13 stages (target cards, concepts introduced, comebacks, anchor stories) and lists every concept's intro stage and comeback stages.
+- Stage 3 (`s03.js`, 40 cards): inventory and classification (Marriott/Starwood 2018), data roles and GDPR controller/processor, aggregation, three data states, the lifecycle, baselines with scoping and tailoring, DLP/DRM/CASB, pseudonymization vs anonymization (AOL 2006), retention and legal hold, data sovereignty, EOL vs EOS, remanence and clear/purge/destroy (Morgan Stanley), crypto-shredding. Path total: 120 cards, 31/77 concepts introduced.
 
 ## Format reference for `xN.js`
 
@@ -114,8 +116,8 @@ CISSP.stage(1, { cards: [
 
 1. ~~**Pilot:** stage 1 plus the start of stage 2 (~60 cards, including a few `back` cards), using all card kinds, plus the `#/path` view.~~ Done (61 cards). **Next: review it on desktop and on a phone before scaling.** Stage 1 has 45 cards rather than ~100; it can grow later, or stages can simply be shorter.
 2. ~~Finish stage 2~~ Done (35 cards).
-3. Write the full stage outline (~12 stages: concepts introduced and planned comebacks) as `app/data/path/outline.md` before writing the remaining cards, so the spiral is planned rather than accidental.
-4. Then one stage per batch (~100 cards), committing after each with `validate.js` + `check-diagrams.js` green.
+3. ~~Write the full stage outline~~ Done: `app/data/path/outline.md`.
+4. One stage per batch, following the outline, committing after each with `validate.js` + `check-diagrams.js` green. Stage 3 done; **next: stage 4 (identity and access)**. Update the outline when a stage turns out differently.
 
 ### 1. Ideas
 

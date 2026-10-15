@@ -33,6 +33,7 @@ Each concept should have a definition, a plain-language explanation, a real-worl
 - Stage 2 finished (`s02.js`, 35 cards, recap at `s02-035`, no longer `partial`): social engineering (Twitter 2020, the levers, phishing variants, pretexting/tailgating, BEC), a phishing-chain diagram, awareness vs training vs education, measuring awareness, insider threat signs and types (Snowden 2013), AUP/NDA, role-based training, and a blame-free reporting culture. Path total: 80 cards, 24/77 concepts introduced.
 - Stage outline: `app/data/path/outline.md` plans all 13 stages (target cards, concepts introduced, comebacks, anchor stories) and lists every concept's intro stage and comeback stages.
 - Stage 3 (`s03.js`, 40 cards): inventory and classification (Marriott/Starwood 2018), data roles and GDPR controller/processor, aggregation, three data states, the lifecycle, baselines with scoping and tailoring, DLP/DRM/CASB, pseudonymization vs anonymization (AOL 2006), retention and legal hold, data sovereignty, EOL vs EOS, remanence and clear/purge/destroy (Morgan Stanley), crypto-shredding. Path total: 120 cards, 31/77 concepts introduced.
+- Stage 4 (`s04.js`, 55 cards): IAAA and factor types, real MFA vs two knowledge factors, NIST password guidance, credential stuffing (23andMe 2023) and other password attacks, Colonial Pipeline again (no MFA, dormant account), MFA fatigue (Uber 2022) and the MFA strength ladder, passkeys, help-desk resets (MGM 2023) and identity proofing, biometrics with FAR/FRR/CER (OPM 2015), DAC/MAC/RBAC/rule/ABAC/risk-based, directories and SSO, Kerberos, federation (SAML/OAuth/OIDC, consent phishing), automated JML, privilege creep and access reviews, PAM, service accounts, physical plus logical access, sessions, identity as the perimeter. 6 diagrams, 7 think cards, 7 back cards. Path total: 175 cards, 37/77 concepts introduced.
 
 ## Format reference for `xN.js`
 
@@ -117,7 +118,7 @@ CISSP.stage(1, { cards: [
 1. ~~**Pilot:** stage 1 plus the start of stage 2 (~60 cards, including a few `back` cards), using all card kinds, plus the `#/path` view.~~ Done (61 cards). **Next: review it on desktop and on a phone before scaling.** Stage 1 has 45 cards rather than ~100; it can grow later, or stages can simply be shorter.
 2. ~~Finish stage 2~~ Done (35 cards).
 3. ~~Write the full stage outline~~ Done: `app/data/path/outline.md`.
-4. One stage per batch, following the outline, committing after each with `validate.js` + `check-diagrams.js` green. Stage 3 done; **next: stage 4 (identity and access)**. Update the outline when a stage turns out differently.
+4. One stage per batch, following the outline, committing after each with `validate.js` + `check-diagrams.js` green. Stages 3–4 done; **next: stage 5 (networks)**. Update the outline when a stage turns out differently.
 
 ### 1. Ideas
 

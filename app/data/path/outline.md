@@ -13,8 +13,8 @@ Stages are 35–90 cards. Shorter is fine: depth comes from comebacks, not from 
 |---|---|---|---|---|---|
 | 1 | Why security exists ✅ | 45 | d1-c1, d1-c9, d1-c11, d1-c2, d1-c3, d1-c6, d1-c4, d1-c10, d3-c1, d1-c13, d1-c7 (touch), d7-c6 (touch) | — | Target 2013, Stuxnet, Colonial Pipeline 2021, Equifax 2017, Capital One 2019 |
 | 2 | People are part of the system ✅ | 35 | d1-c8, d7-c3, d1-c14, d5-c6, d8-c4, d6-c5, d7-c1, d7-c2, d7-c4, d7-c11, d8-c5 (touch), d5-c1 (touch) | d1-c11, d1-c13, d1-c3, d3-c1 | Société Générale 2008, Cisco 2018, Twitter 2020, Snowden 2013 |
-| 3 | Data: what we protect | 40 | d2-c1, d2-c2, d2-c3, d2-c4, d2-c5, d2-c6, d2-c7 | d1-c1 (CIA per data state), d1-c4 (GDPR roles, residency), d1-c2 (owner accountability), d1-c9 (asset value), d7-c3 (need to know), d1-c11 (DLP as a control), d1-c13 (disposal by vendors) | Marriott/Starwood 2018, Morgan Stanley disposal (fined 2020/2022) |
-| 4 | Who are you? Identity and access | 55 | d5-c1 (properly), d5-c2, d5-c3, d5-c4, d5-c5, d5-c7, d5-c8 | d5-c6 (JML), d7-c3 (least privilege), d2-c2 (owner approves access), d2-c1 (labels → MAC), d1-c14 (MFA fatigue), d1-c8 | Uber 2022 (MFA fatigue), Colonial Pipeline again (no MFA) |
+| 3 | Data: what we protect ✅ | 40 | d2-c1, d2-c2, d2-c3, d2-c4, d2-c5, d2-c6, d2-c7 | d1-c1 (CIA per data state), d1-c4 (GDPR roles, residency), d1-c2 (owner accountability), d1-c9 (asset value), d7-c3 (need to know), d1-c11 (DLP as a control), d1-c13 (disposal by vendors) | Marriott/Starwood 2018, Morgan Stanley disposal (fined 2020/2022) |
+| 4 | Who are you? Identity and access ✅ | 55 | d5-c1 (properly), d5-c2, d5-c3, d5-c4, d5-c5, d5-c7, d5-c8 | d5-c6 (JML), d7-c3 (least privilege), d2-c2 (owner approves access), d2-c1 (labels → MAC), d1-c14 (MFA fatigue), d1-c8 | Uber 2022 (MFA fatigue), Colonial Pipeline again (no MFA), 23andMe 2023, MGM Resorts 2023, OPM 2015 |
 | 5 | How machines talk: networks | 70 | d4-c1, d4-c2, d4-c3, d4-c4, d4-c5, d4-c6, d4-c7, d4-c8, d4-c9 | d3-c1 (defense in depth, zero trust), d2-c3 (data in transit), d5-c7 (RADIUS/802.1X), d1-c13 (Target's flat network) | Target again (segmentation), Mirai 2016 |
 | 6 | Secrets and proof: cryptography | 70 | d3-c6, d3-c7, d3-c8, d3-c9, d3-c10, d3-c4 (TPM/HSM part) | d1-c1 (integrity, nonrepudiation), d2-c3 (at rest / in transit), d2-c5 (crypto-shredding), d4-c5 (inside TLS), d4-c9 (VPN crypto), d5-c4, d5-c5 (signed tokens), d5-c1 | DigiNotar 2011, Heartbleed 2014 |
 | 7 | Building secure systems | 70 | d3-c2, d3-c3, d3-c4, d3-c5, d3-c13, d1-c12 | d3-c1 (in depth), d2-c1 (BLP), d5-c3 (MAC/RBAC), d2-c6 (baselines), d1-c10 (authorization), d4-c4, d4-c8, d3-c9 | Spectre/Meltdown 2018 |
@@ -33,27 +33,27 @@ Stage numbers; `✓` marks what already exists in the cards.
 
 | Concept | Intro | Comebacks |
 |---|---|---|
-| d1-c1 CIA | 1 ✓ | 1 ✓, 3, 6, 12 |
-| d1-c2 Governance, due care/diligence | 1 ✓ | 1 ✓, 3, 9, 13 |
-| d1-c3 Policy hierarchy | 1 ✓ | 2 ✓, 3, 13 |
-| d1-c4 Legal, privacy | 1 ✓ | 2 ✓, 3, 10, 13 |
+| d1-c1 CIA | 1 ✓ | 1 ✓, 3 ✓, 6, 12 |
+| d1-c2 Governance, due care/diligence | 1 ✓ | 1 ✓, 3 ✓, 9, 13 |
+| d1-c3 Policy hierarchy | 1 ✓ | 2 ✓, 3 ✓, 13 |
+| d1-c4 Legal, privacy | 1 ✓ | 2 ✓, 3 ✓, 10, 13 |
 | d1-c5 Investigation types | 10 | 10, 13 |
 | d1-c6 Code of Ethics | 1 ✓ | 1 ✓, 9, 13 |
 | d1-c7 BCP and BIA | 1 ✓ | 2 ✓, 12, 13 |
-| d1-c8 Personnel security | 2 ✓ | 2 ✓, 4, 13 |
-| d1-c9 Risk | 1 ✓ | 1 ✓, 3, 12, 13 |
+| d1-c8 Personnel security | 2 ✓ | 2 ✓, 4 ✓, 13 |
+| d1-c9 Risk | 1 ✓ | 1 ✓, 3 ✓, 12, 13 |
 | d1-c10 RMF | 1 ✓ | 7, 13 |
-| d1-c11 Control types | 1 ✓ | 2 ✓, 3, 8, 9 |
+| d1-c11 Control types | 1 ✓ | 2 ✓, 3 ✓, 8, 9 |
 | d1-c12 Threat modeling | 7 | 11, 13 |
 | d1-c13 SCRM | 1 ✓ | 2 ✓, 5, 9, 11, 13 |
-| d1-c14 Awareness | 2 ✓ | 2 ✓, 4, 10 |
-| d2-c1 Classification | 3 | 3, 4, 7 |
-| d2-c2 Data roles | 3 | 3, 4, 13 |
-| d2-c3 Data states | 3 | 3, 5, 6 |
-| d2-c4 Data lifecycle | 3 | 3, 12 |
-| d2-c5 Remanence, sanitization | 3 | 3, 6, 8 |
-| d2-c6 Scoping, tailoring, DLP | 3 | 3, 7, 9 |
-| d2-c7 Retention, EOL/EOS | 3 | 10, 11 |
+| d1-c14 Awareness | 2 ✓ | 2 ✓, 4 ✓, 10 |
+| d2-c1 Classification | 3 ✓ | 3 ✓, 4 ✓, 7 |
+| d2-c2 Data roles | 3 ✓ | 3 ✓, 4 ✓, 13 |
+| d2-c3 Data states | 3 ✓ | 3 ✓, 5, 6 |
+| d2-c4 Data lifecycle | 3 ✓ | 3 ✓, 12 |
+| d2-c5 Remanence, sanitization | 3 ✓ | 3 ✓, 6, 8 |
+| d2-c6 Scoping, tailoring, DLP | 3 ✓ | 3 ✓, 7, 9 |
+| d2-c7 Retention, EOL/EOS | 3 ✓ | 10, 11 |
 | d3-c1 Secure design principles | 1 ✓ | 2 ✓, 5, 7 |
 | d3-c2 Security models | 7 | 7, 11 |
 | d3-c3 Evaluation, authorization | 7 | 9, 13 |
@@ -76,14 +76,14 @@ Stage numbers; `✓` marks what already exists in the cards.
 | d4-c7 Wireless | 5 | 8, 9 |
 | d4-c8 Segmentation, SDN | 5 | 7, 10 |
 | d4-c9 Remote access | 5 | 6, 12 |
-| d5-c1 IAAA, factors | 2 ✓ | 2 ✓, 4, 6 |
-| d5-c2 Biometrics | 4 | 4, 8 |
-| d5-c3 Authorization models | 4 | 7, 11 |
-| d5-c4 Kerberos | 4 | 6, 10 |
-| d5-c5 Federation | 4 | 6, 11 |
-| d5-c6 Provisioning lifecycle | 2 ✓ | 2 ✓, 4, 13 |
-| d5-c7 SSO, auth systems | 4 | 5, 6 |
-| d5-c8 Physical and logical access | 4 | 8, 8 |
+| d5-c1 IAAA, factors | 2 ✓ | 2 ✓, 4 ✓, 6 |
+| d5-c2 Biometrics | 4 ✓ | 4 ✓, 8 |
+| d5-c3 Authorization models | 4 ✓ | 7, 11 |
+| d5-c4 Kerberos | 4 ✓ | 6, 10 |
+| d5-c5 Federation | 4 ✓ | 6, 11 |
+| d5-c6 Provisioning lifecycle | 2 ✓ | 2 ✓, 4 ✓, 13 |
+| d5-c7 SSO, auth systems | 4 ✓ | 5, 6 |
+| d5-c8 Physical and logical access | 4 ✓ | 8, 8 |
 | d6-c1 Assessments, audits | 9 | 9, 13 |
 | d6-c2 Vulnerability assessment | 9 | 10, 11 |
 | d6-c3 Pentesting | 9 | 9, 13 |
@@ -93,7 +93,7 @@ Stage numbers; `✓` marks what already exists in the cards.
 | d6-c7 Audits, SOC reports | 9 | 9, 13 |
 | d7-c1 Evidence | 2 ✓ | 10, 13 |
 | d7-c2 Logging, monitoring | 2 ✓ | 9, 10 |
-| d7-c3 Foundational ops (SoD, least privilege) | 2 ✓ | 2 ✓, 3, 4, 11 |
+| d7-c3 Foundational ops (SoD, least privilege) | 2 ✓ | 2 ✓, 3 ✓, 4 ✓, 11 |
 | d7-c4 Incident management | 2 ✓ | 2 ✓, 10, 12 |
 | d7-c5 Detective/preventive (IDS, sandbox) | 9 | 10, 10 |
 | d7-c6 Patch, change | 1 ✓ | 9, 11 |

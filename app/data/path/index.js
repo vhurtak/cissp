@@ -3,7 +3,7 @@
 // `partial` marks a stage that is still being written (no recap yet).
 CISSP.pathIndex([
   { n: 1, file: 's01.js', title: { en: 'Why security exists', ru: 'Зачем нужна безопасность' } },
-  { n: 2, file: 's02.js', partial: true, title: { en: 'People are part of the system', ru: 'Люди — часть системы' } },
+  { n: 2, file: 's02.js', title: { en: 'People are part of the system', ru: 'Люди — часть системы' } },
   { n: 3, title: { en: 'Data: what we protect', ru: 'Данные: что мы защищаем' } },
   { n: 4, title: { en: 'Who are you? Identity and access', ru: 'Кто вы? Идентификация и доступ' } },
   { n: 5, title: { en: 'How machines talk: networks', ru: 'Как общаются машины: сети' } },

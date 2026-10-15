@@ -9,7 +9,7 @@ CISSP.pathIndex([
   { n: 5, file: 's05.js', title: { en: 'How machines talk: networks', ru: 'Как общаются машины: сети' } },
   { n: 6, file: 's06.js', title: { en: 'Secrets and proof: cryptography', ru: 'Секреты и доказательства: криптография' } },
   { n: 7, file: 's07.js', title: { en: 'Building secure systems', ru: 'Как строят защищённые системы' } },
-  { n: 8, title: { en: 'Buildings, power and people safety', ru: 'Здания, питание и безопасность людей' } },
+  { n: 8, file: 's08.js', title: { en: 'Buildings, power and people safety', ru: 'Здания, питание и безопасность людей' } },
   { n: 9, title: { en: 'Watching and testing', ru: 'Наблюдение и проверка' } },
   { n: 10, title: { en: 'When things go wrong: incidents', ru: 'Когда что-то пошло не так: инциденты' } },
   { n: 11, title: { en: 'Software that defends itself', ru: 'Программы, которые защищают себя' } },

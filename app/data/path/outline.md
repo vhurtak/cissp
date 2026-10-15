@@ -18,7 +18,7 @@ Stages are 35–90 cards. Shorter is fine: depth comes from comebacks, not from 
 | 5 | How machines talk: networks ✅ | 69 | d4-c1, d4-c2, d4-c3, d4-c4, d4-c5, d4-c6, d4-c7, d4-c8, d4-c9 | d3-c1 (defense in depth, zero trust, air gap), d2-c3 (data in transit), d5-c7 (RADIUS/802.1X, TACACS+), d1-c13 (Target's flat network, vendor access, IoT), d1-c1 (availability), d1-c7 (DDoS and DNS dependency), d1-c14 (SPF/DKIM/DMARC), d7-c6, d7-c4, d1-c3, d1-c9 | Mirai/Dyn 2016, Target again (segmentation), GitHub 2018 (memcached), Kaminsky 2008, TJX 2007 (WEP), Stuxnet again (air gap) |
 | 6 | Secrets and proof: cryptography ✅ | 70 | d3-c6, d3-c7, d3-c8, d3-c9, d3-c10, d3-c4 (TPM/HSM part) | d1-c1 (integrity, nonrepudiation, ransomware), d2-c3 (key next to the data), d2-c5 (crypto-shredding, BYOK/HYOK), d4-c5 (inside TLS, forward secrecy), d4-c9 (IKE, pre-shared keys), d5-c4 (Kerberoasting, replay), d5-c5 + d5-c7 (signed tokens), d5-c1 (passkeys, password rules), d1-c13 (DigiNotar, stolen signing keys), d7-c3 (split knowledge), d1-c9 | Enigma, Adobe 2013, Flame 2012, LinkedIn 2012, DigiNotar 2011, Heartbleed 2014, Stuxnet again (signed drivers) |
 | 7 | Building secure systems ✅ | 68 | d3-c2, d3-c3, d3-c5, d3-c13, d1-c12, d3-c4 (TCB, rings, memory, virtualization) | d3-c1 (principles, fail-safe, zero trust PE/PA/PEP, privacy by design, SASE), d2-c1 (BLP, aggregation, polyinstantiation), d5-c3 (MAC, central PDP/PEP), d2-c6 (Select step), d1-c10 (RMF steps), d4-c4 + d4-c8 (Purdue, segmentation by design), d3-c9 (mTLS, secrets), d3-c10 (Spectre as a side channel), d1-c13 (kernel drivers, backdoors), d7-c11 (fail-safe doors), d2-c7 (EOS device), d2-c5 (retirement) | Spectre/Meltdown 2018, CrowdStrike 2024, Juniper ScreenOS 2015, Ukraine grid 2015, Capital One again (SSRF, over-broad role) |
-| 8 | Buildings, power and people safety | 45 | d3-c11, d3-c12, d7-c9 (RAID as hardware redundancy) | d7-c11, d5-c8, d5-c2, d1-c11 (physical controls), d2-c5 (destruction), d1-c1 (safety first), d3-c5 (ICS/SCADA), d4-c7 | OVHcloud Strasbourg fire 2021 |
+| 8 | Buildings, power and people safety ✅ | 47 | d3-c11, d3-c12, d7-c9 (RAID as hardware redundancy) | d7-c11 (evacuation, duress, travel, fail-safe doors), d5-c8 (mantrap, badges, visitors, one log), d5-c2 (throughput, fallback), d1-c11 + d3-c1 (deter/delay/detect/respond, layers), d2-c5 (destruction room), d1-c1 (availability layers), d3-c5 (building systems as OT), d4-c7 (badge cloning, Wi-Fi past walls), d3-c10 (TEMPEST), d1-c7 (generator tests, offsite backups) | OVHcloud Strasbourg fire 2021, Hurricane Sandy 2012, ING Romania 2016, Target again (HVAC vendor) |
 | 9 | Watching and testing | 80 | d6-c1, d6-c2, d6-c3, d6-c6, d6-c7, d7-c5 | d7-c2, d6-c5, d6-c4 (touch), d7-c6, d1-c6 (authorization to test), d1-c2 (due diligence), d1-c13 (SOC 2 of vendors), d3-c3, d3-c10, d4-c1, d4-c3, d4-c4, d4-c6, d4-c7, d2-c6, d1-c11 | Equifax again (scanning), MOVEit 2023 |
 | 10 | When things go wrong: incidents | 80 | d1-c5, d8-c8 | d7-c4 (properly), d7-c1, d7-c2, d7-c5, d6-c2, d1-c4 (breach notification), d1-c14, d2-c7 (legal hold), d3-c8 (evidence hashes), d4-c2, d4-c3, d4-c6, d4-c8 (containment), d5-c4 (golden ticket) | NotPetya 2017, WannaCry 2017, Maersk |
 | 11 | Software that defends itself | 90 | d8-c1, d8-c2, d8-c3, d8-c6, d8-c7, d6-c4 (properly) | d8-c4, d8-c5, d8-c8, d1-c12, d1-c13 (SBOM), d7-c3 (SoD in pipeline), d7-c6, d3-c2 (Clark-Wilson), d3-c4, d3-c5, d3-c7 (code signing), d3-c8 (password storage), d3-c9, d3-c13, d4-c5, d5-c3, d5-c5, d6-c2, d6-c6, d2-c7 (EOS software) | SolarWinds 2020, Log4Shell 2021, xz utils 2024 |
@@ -43,7 +43,7 @@ Stage numbers; `✓` marks what already exists in the cards.
 | d1-c8 Personnel security | 2 ✓ | 2 ✓, 4 ✓, 13 |
 | d1-c9 Risk | 1 ✓ | 1 ✓, 3 ✓, 12, 13 |
 | d1-c10 RMF | 1 ✓ | 7 ✓, 13 |
-| d1-c11 Control types | 1 ✓ | 2 ✓, 3 ✓, 8, 9 |
+| d1-c11 Control types | 1 ✓ | 2 ✓, 3 ✓, 8 ✓, 9 |
 | d1-c12 Threat modeling | 7 ✓ | 7 ✓, 11, 13 |
 | d1-c13 SCRM | 1 ✓ | 2 ✓, 5 ✓, 6 ✓, 9, 11, 13 |
 | d1-c14 Awareness | 2 ✓ | 2 ✓, 4 ✓, 10 |
@@ -51,21 +51,21 @@ Stage numbers; `✓` marks what already exists in the cards.
 | d2-c2 Data roles | 3 ✓ | 3 ✓, 4 ✓, 13 |
 | d2-c3 Data states | 3 ✓ | 3 ✓, 5 ✓, 6 ✓ |
 | d2-c4 Data lifecycle | 3 ✓ | 3 ✓, 12 |
-| d2-c5 Remanence, sanitization | 3 ✓ | 3 ✓, 6 ✓, 8 |
+| d2-c5 Remanence, sanitization | 3 ✓ | 3 ✓, 6 ✓, 8 ✓ |
 | d2-c6 Scoping, tailoring, DLP | 3 ✓ | 3 ✓, 7 ✓, 9 |
 | d2-c7 Retention, EOL/EOS | 3 ✓ | 7 ✓, 10, 11 |
 | d3-c1 Secure design principles | 1 ✓ | 2 ✓, 5 ✓, 7 ✓ |
 | d3-c2 Security models | 7 ✓ | 7 ✓, 11 |
 | d3-c3 Evaluation, authorization | 7 ✓ | 7 ✓, 9, 13 |
 | d3-c4 System capabilities (TPM, memory) | 6 ✓ | 7 ✓, 11 |
-| d3-c5 Architecture vulnerabilities | 7 ✓ | 7 ✓, 8, 11 |
+| d3-c5 Architecture vulnerabilities | 7 ✓ | 7 ✓, 8 ✓, 11 |
 | d3-c6 Symmetric crypto | 6 ✓ | 6 ✓, 12 |
 | d3-c7 Asymmetric, signatures | 6 ✓ | 6 ✓, 11 |
 | d3-c8 Hashing | 6 ✓ | 6 ✓, 10, 11 |
 | d3-c9 PKI | 6 ✓ | 6 ✓, 7 ✓, 11 |
 | d3-c10 Cryptanalytic attacks | 6 ✓ | 6 ✓, 9 |
-| d3-c11 Site design | 8 | 8, 12 |
-| d3-c12 Fire, power, HVAC | 8 | 8, 12 |
+| d3-c11 Site design | 8 ✓ | 8 ✓, 12 |
+| d3-c12 Fire, power, HVAC | 8 ✓ | 8 ✓, 12 |
 | d3-c13 System lifecycle | 7 ✓ | 7 ✓, 11, 13 |
 | d4-c1 OSI | 5 ✓ | 5 ✓, 9 |
 | d4-c2 TCP/IP | 5 ✓ | 5 ✓, 10 |
@@ -73,17 +73,17 @@ Stage numbers; `✓` marks what already exists in the cards.
 | d4-c4 Devices, firewalls | 5 ✓ | 5 ✓, 7 ✓, 9 |
 | d4-c5 TLS, IPsec, SSH, DNSSEC | 5 ✓ | 5 ✓, 6 ✓, 11 |
 | d4-c6 Network attacks | 5 ✓ | 5 ✓, 9, 10 |
-| d4-c7 Wireless | 5 ✓ | 5 ✓, 8, 9 |
+| d4-c7 Wireless | 5 ✓ | 5 ✓, 8 ✓, 9 |
 | d4-c8 Segmentation, SDN | 5 ✓ | 5 ✓, 7 ✓, 10 |
 | d4-c9 Remote access | 5 ✓ | 5 ✓, 6 ✓, 12 |
 | d5-c1 IAAA, factors | 2 ✓ | 2 ✓, 4 ✓, 6 ✓ |
-| d5-c2 Biometrics | 4 ✓ | 4 ✓, 8 |
+| d5-c2 Biometrics | 4 ✓ | 4 ✓, 8 ✓ |
 | d5-c3 Authorization models | 4 ✓ | 7 ✓, 11 |
 | d5-c4 Kerberos | 4 ✓ | 6 ✓, 10 |
 | d5-c5 Federation | 4 ✓ | 6 ✓, 11 |
 | d5-c6 Provisioning lifecycle | 2 ✓ | 2 ✓, 4 ✓, 13 |
 | d5-c7 SSO, auth systems | 4 ✓ | 5 ✓, 6 ✓ |
-| d5-c8 Physical and logical access | 4 ✓ | 8, 8 |
+| d5-c8 Physical and logical access | 4 ✓ | 8 ✓, 8 ✓ |
 | d6-c1 Assessments, audits | 9 | 9, 13 |
 | d6-c2 Vulnerability assessment | 9 | 10, 11 |
 | d6-c3 Pentesting | 9 | 9, 13 |
@@ -99,9 +99,9 @@ Stage numbers; `✓` marks what already exists in the cards.
 | d7-c6 Patch, change | 1 ✓ | 9, 11 |
 | d7-c7 Backups | 12 | 12, 13 |
 | d7-c8 Recovery sites | 12 | 12, 13 |
-| d7-c9 RAID | 8 | 12, 12 |
+| d7-c9 RAID | 8 ✓ | 8 ✓, 12, 12 |
 | d7-c10 DR process, plan tests | 12 | 12, 13 |
-| d7-c11 Physical ops, personnel safety | 2 ✓ | 7 ✓, 8, 12 |
+| d7-c11 Physical ops, personnel safety | 2 ✓ | 7 ✓, 8 ✓, 12 |
 | d8-c1 SDLC | 11 | 11, 13 |
 | d8-c2 Methodologies | 11 | 11, 13 |
 | d8-c3 Maturity models | 11 | 13, 13 |
